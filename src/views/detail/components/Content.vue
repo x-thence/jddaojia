@@ -12,11 +12,11 @@
         <span class="price">￥{{ item.price}}</span>
       </div>
       <div class="count__wrapper">
-        <span class="icon" @click="handleChangeCount('minus', item)">
+        <span class="icon" @click="() => handleChangeCount('minus', item)">
           <van-icon color="icon" name="minus" />
         </span>
-        <span class="count">{{ item.count }}</span>
-        <span class="icon" @click="handleChangeCount('plus', item)">
+        <span class="count">{{ cartInfo?.[businessId]?.[item.id]?.count || 0 }}</span>
+        <span class="icon" @click="() => handleChangeCount('plus', item)">
           <van-icon name="plus" />
         </span>
       </div>
@@ -29,35 +29,8 @@
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import { storeEffect } from './common'
 import { useStore } from 'vuex'
-
-const storeEffect = () => {
-  const store = useStore()
-  const route = useRoute()
-  const handleChangeCount = (type, item) => {
-    const businessId = route.params.id
-    if (type === 'minus') {
-      item.count -= 1
-      if (item.count < 0) {
-        item.count = 0
-        return
-      }
-      store.commit('minusItem', {
-        item,
-        businessId
-      })
-    } else {
-      item.count += 1
-      store.commit('addItem', {
-        item,
-        businessId
-      })
-    }
-    // console.log(store.state)
-  }
-  return handleChangeCount
-}
-
 // tab列表
 const navList = [{
   title: '时令蔬菜',
@@ -106,14 +79,22 @@ const tabEffect = () => {
   }
   return { currentTab, handleTabClick }
 }
-
+// 获取购物车
+const useCartEffect = () => {
+  const store = useStore()
+  const { cartInfo } = toRefs(store.state)
+  return { cartInfo }
+}
 export default {
   name: 'Content',
   setup () {
     const { currentTab, handleTabClick } = tabEffect()
     const { data } = getBusinessDataEffect(currentTab)
-    const handleChangeCount = storeEffect()
-    return { navList, currentTab, data, handleTabClick, handleChangeCount }
+    const { handleChangeCount } = storeEffect()
+    const route = useRoute()
+    const businessId = route.params.id
+    const { cartInfo } = useCartEffect()
+    return { navList, currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
   }
 }
 </script>

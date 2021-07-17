@@ -12,7 +12,7 @@
     <Content />
     <Cart @showCartGoods="handleShowCartGoods" :has-count="hasCount" :total-price="totalPrice" :cart-count="count"/>
     <CartGoodsList v-if="isShowCartGoods" />
-    <div v-if="isShowCartGoods" class="mask"></div>
+    <div v-if="isShowCartGoods" @click="handleShowCartGoods" class="mask"></div>
   </div>
 </template>
 
@@ -123,7 +123,16 @@ export default {
     const totalPrice = getTotalPriceEffect()
     const count = computedCountEffect()
     const handleShowCartGoods = handleShowCartGoodsEffect(isShowCartGoods)
-    return { obj, keywords, handleBack, hasCount, totalPrice, count, handleShowCartGoods, isShowCartGoods }
+    return {
+      obj,
+      keywords,
+      handleBack,
+      hasCount,
+      totalPrice,
+      count,
+      handleShowCartGoods,
+      isShowCartGoods
+    }
   }
 }
 </script>

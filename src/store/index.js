@@ -37,8 +37,11 @@ export default createStore({
       const { businessId, item } = params
       const businessCartInfo = state.cartInfo[businessId]
       if (businessCartInfo) {
-        if (businessCartInfo[item.id]) {
+        if (businessCartInfo[item.id] && businessCartInfo[item.id].count > 0) {
           businessCartInfo[item.id].count -= 1
+          if (businessCartInfo[item.id].count <= 0) {
+            delete businessCartInfo[item.id]
+          }
         }
       }
     }

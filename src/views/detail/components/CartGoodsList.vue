@@ -1,29 +1,31 @@
 <template>
   <div class="cartlist__wrapper">
     <div class="header">
-      <van-checkbox v-model="checked">全选(已选2件)</van-checkbox>
+      <!-- <van-checkbox v-model="checked">全选(已选2件)</van-checkbox> -->
       <div class="clear">
         <span>清空购物车</span>
       </div>
     </div>
-    <div class="content">
-      <div class="goods__item" v-for="item in list" :key="item">
-        <img :src="item.imgUrl" alt="">
-        <div class="text__wrapper">
-          <span class="name">{{ item.name }}</span>
-          <p>{{ item.desc }}</p>
-          <span class="price">￥{{ item.price}}</span>
+    <div v-if="list.length" class="content">
+      <template v-for="item in list" :key="item.imgurl">
+        <div v-if="item.count" class="goods__item">
+          <img :src="item.imgUrl" alt="">
+          <div class="text__wrapper">
+            <span class="name">{{ item.name }}</span>
+            <p>{{ item.desc }}</p>
+            <span class="price">￥{{ item.price}}</span>
+          </div>
+          <div class="count__wrapper">
+          <span class="icon" @click="handleChangeCount('minus', item)">
+            <van-icon color="icon" name="minus" />
+          </span>
+            <span class="count">{{ item.count }}</span>
+            <span class="icon" @click="handleChangeCount('plus', item)">
+            <van-icon name="plus" />
+          </span>
+          </div>
         </div>
-        <div class="count__wrapper">
-        <span class="icon" @click="handleChangeCount('minus', item)">
-          <van-icon color="icon" name="minus" />
-        </span>
-          <span class="count">{{ item.count }}</span>
-          <span class="icon" @click="handleChangeCount('plus', item)">
-          <van-icon name="plus" />
-        </span>
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -31,22 +33,33 @@
 <script>
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-import { reactive, toRefs } from 'vue'
+// import { reactive, toRefs } from 'vue'
+import { storeEffect } from './common'
+
+// 计算当前商家被添加进购物车的商品
+const showProductsEffect = () => {
+  const store = useStore()
+  const route = useRoute()
+  const businessId = route.params.id
+  const list = []
+  const data = store.state.cartInfo[businessId]
+  // 商户id不存在直接return
+  if (!businessId) {
+    return
+  }
+  Object.keys(data).forEach((productId) => {
+    if (data[productId].count > 0) {
+      list.push(data[productId])
+    }
+  })
+  return list
+}
 export default {
   name: 'CartGoodsList',
   setup () {
-    const store = useStore()
-    const route = useRoute()
-    const data = reactive({ list: [] })
-    const businessId = route.params.id
-    if (store.state.cartInfo[businessId]) {
-      const goods = Object.keys(store.state.cartInfo[businessId])
-      goods.forEach((ele) => {
-        data.list.push(store.state.cartInfo[businessId][ele])
-      })
-    }
-    const { list } = toRefs(data)
-    return { list }
+    const { handleChangeCount } = storeEffect()
+    const list = showProductsEffect()
+    return { handleChangeCount, list }
   }
 }
 </script>
@@ -78,7 +91,7 @@ export default {
     padding: .1rem;
     display: flex;
     overflow-y: scroll;
-    height: 85%;
+    max-height: 85%;
     box-sizing: border-box;
     flex-wrap: wrap;
     .goods__item {
@@ -86,7 +99,6 @@ export default {
       width: 100%;
       height: .7rem;
       position: relative;
-      //padding: .1rem 0;
       img {
         width: .7rem;
         height: .7rem;
