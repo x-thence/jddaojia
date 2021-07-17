@@ -31,7 +31,6 @@ import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { storeEffect } from './common'
 import { useStore } from 'vuex'
-// import { useStore } from 'vuex'
 // tab列表
 const navList = [{
   title: '时令蔬菜',
@@ -80,7 +79,7 @@ const tabEffect = () => {
   }
   return { currentTab, handleTabClick }
 }
-
+// 获取购物车
 const useCartEffect = () => {
   const store = useStore()
   const { cartInfo } = toRefs(store.state)
@@ -92,14 +91,8 @@ export default {
     const { currentTab, handleTabClick } = tabEffect()
     const { data } = getBusinessDataEffect(currentTab)
     const { handleChangeCount } = storeEffect()
-    // const cartCount = computed(() => {
     const route = useRoute()
-    //   const store = useStore()
     const businessId = route.params.id
-    //   const shopId = store.state.cartInfo?.[businessId]
-    //   console.log('shopId', shopId?.['001'])
-    //   return shopId
-    // })
     const { cartInfo } = useCartEffect()
     return { navList, currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
   }
