@@ -19,14 +19,6 @@
 </template>
 
 <script>
-// const handleClickEffect = (emit) => {
-//   console.log(emit)
-//   const showCartInfo = () => {
-//     emit('showCartGoods')
-//   }
-//   return showCartInfo
-// }
-
 export default {
   name: 'Cart',
   props: {
