@@ -1,14 +1,15 @@
 <template>
   <div class="cartlist__wrapper">
     <div class="header">
-      <!-- <van-checkbox v-model="checked">全选(已选2件)</van-checkbox> -->
+      <van-checkbox v-model="isAllChecked">全选(已选{{ checkedCount }}件)</van-checkbox>
       <div class="clear">
-        <span>清空购物车</span>
+        <span @click="handleClearCart">清空购物车</span>
       </div>
     </div>
     <div v-if="list.length" class="content">
       <template v-for="item in list" :key="item.imgurl">
         <div v-if="item.count" class="goods__item">
+          <van-checkbox v-model="item.checked"></van-checkbox>
           <img :src="item.imgUrl" alt="">
           <div class="text__wrapper">
             <span class="name">{{ item.name }}</span>
@@ -16,11 +17,11 @@
             <span class="price">￥{{ item.price}}</span>
           </div>
           <div class="count__wrapper">
-          <span class="icon" @click="handleChangeCount('minus', item)">
+          <span class="icon" @click="handleChangeCount('minus', item, true)">
             <van-icon color="icon" name="minus" />
           </span>
             <span class="count">{{ item.count }}</span>
-            <span class="icon" @click="handleChangeCount('plus', item)">
+            <span class="icon" @click="handleChangeCount('plus', item, true)">
             <van-icon name="plus" />
           </span>
           </div>
@@ -33,7 +34,7 @@
 <script>
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
-// import { reactive, toRefs } from 'vue'
+import { computed, ref } from 'vue'
 import { storeEffect } from './common'
 
 // 计算当前商家被添加进购物车的商品
@@ -54,12 +55,45 @@ const showProductsEffect = () => {
   })
   return list
 }
+// 判断是否全选
+const isAllChecked = computed(() => {
+  const store = useStore()
+  const route = useRoute()
+  const isAllChecked = ref(true)
+  const businessId = route.params.id
+  if (store.state.cartInfo[businessId]) {
+    for (const key in store.state.cartInfo[businessId]) {
+      const product = store.state.cartInfo[businessId][key]
+      if (product.count > 0 && !product.checked) {
+        isAllChecked.value = false
+      }
+    }
+  }
+  return isAllChecked.value
+})
+// 计算选中商品的数量
+const checkedCount = computed(() => {
+  const store = useStore()
+  const route = useRoute()
+  let total = 0
+  const businessId = route.params.id
+  if (store.state.cartInfo[businessId]) {
+    for (const key in store.state.cartInfo[businessId]) {
+      const product = store.state.cartInfo[businessId][key]
+      if (product.count > 0 && product.checked) {
+        total += 1
+      }
+    }
+  }
+  return total
+})
+
 export default {
   name: 'CartGoodsList',
   setup () {
     const { handleChangeCount } = storeEffect()
     const list = showProductsEffect()
-    return { handleChangeCount, list }
+    return { handleChangeCount, list, isAllChecked, checkedCount }
   }
 }
 </script>
@@ -82,6 +116,7 @@ export default {
     justify-content: space-around;
     margin-bottom: .1rem;
     padding: .1rem;
+    border-bottom: 1px solid #ccc;
     .clear {
       flex: 1;
       text-align: right;

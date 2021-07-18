@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    // 购物车数据结构 { cartInfo: { "[businessId]": { "001(商品id)": { count: } } } }
     cartInfo: {}
   },
   mutations: {
@@ -13,19 +14,23 @@ export default createStore({
       if (!businessCartInfo) {
         state.cartInfo[businessId] = {}
         state.cartInfo[businessId][item.id] = {
+          id: item.id,
           count: 1,
           price: item.price,
           imgUrl: item.imgUrl,
-          desc: item.desc
+          desc: item.desc,
+          checked: true
         }
       } else {
         // 若已存在商家数据则判断购物车是否含有该商品的数据，有则+1，没有则进行初始化
         if (!businessCartInfo[item.id]) {
           businessCartInfo[item.id] = {
+            id: item.id,
             count: 1,
             price: item.price,
             imgUrl: item.imgUrl,
-            desc: item.desc
+            desc: item.desc,
+            checked: true
           }
         } else {
           businessCartInfo[item.id].count += 1
