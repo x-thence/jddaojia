@@ -125,13 +125,13 @@ export default {
       color: #666;
     }
     .is__active {
-      color: red;
-      background: #fff;
+      color: $priceColor;
+      background: $bgColorWhite;
     }
    }
   &__goods {
     flex: 1;
-    background: #fff;
+    background: $bgColorWhite;
     padding-right: .1rem;
     overflow-x: hidden;
     overflow-y: scroll;

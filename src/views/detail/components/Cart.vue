@@ -72,7 +72,7 @@ export default {
     }
     .price {
       margin-left: .05rem;
-      color: rgb(255, 30, 25);
+      color: $priceColor;
       font-size: .2rem;
     }
   }
@@ -88,7 +88,7 @@ export default {
       padding: .1rem .25rem;
       border-radius: .3rem;
       background: #c4c4c4;
-      color: #fff;
+      color: $bgColorWhite;
     }
     .payable{
       background:$baseGreenColor !important;

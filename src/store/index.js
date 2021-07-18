@@ -54,7 +54,22 @@ export default createStore({
     clearCurrentShopCart (state, businessId) {
       if (state.cartInfo[businessId]) {
         state.cartInfo[businessId] = {}
-        console.log(state.cartInfo[businessId])
+      }
+    },
+    // 设置全选
+    setAllChecked (state, businessId) {
+      if (state.cartInfo[businessId]) {
+        for (const id in state.cartInfo[businessId]) {
+          state.cartInfo[businessId][id].checked = true
+        }
+      }
+    },
+    // 取消全选
+    cancelAllChecked (state, businessId) {
+      if (state.cartInfo[businessId]) {
+        for (const id in state.cartInfo[businessId]) {
+          state.cartInfo[businessId][id].checked = false
+        }
       }
     }
   },
