@@ -49,6 +49,13 @@ export default createStore({
           }
         }
       }
+    },
+    // 清空当前商家下的购物车
+    clearCurrentShopCart (state, businessId) {
+      if (state.cartInfo[businessId]) {
+        state.cartInfo[businessId] = {}
+        console.log(state.cartInfo[businessId])
+      }
     }
   },
   actions: {

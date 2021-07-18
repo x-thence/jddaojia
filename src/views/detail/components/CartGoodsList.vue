@@ -38,7 +38,7 @@ import { computed, ref } from 'vue'
 import { storeEffect } from './common'
 
 // 计算当前商家被添加进购物车的商品
-const showProductsEffect = () => {
+const list = computed(() => {
   const store = useStore()
   const route = useRoute()
   const businessId = route.params.id
@@ -54,7 +54,7 @@ const showProductsEffect = () => {
     }
   })
   return list
-}
+})
 // 判断是否全选
 const isAllChecked = computed(() => {
   const store = useStore()
@@ -92,8 +92,13 @@ export default {
   name: 'CartGoodsList',
   setup () {
     const { handleChangeCount } = storeEffect()
-    const list = showProductsEffect()
-    return { handleChangeCount, list, isAllChecked, checkedCount }
+    const store = useStore()
+    const route = useRoute()
+    const handleClearCart = () => {
+      const businessId = route.params.id
+      store.commit('clearCurrentShopCart', businessId)
+    }
+    return { handleChangeCount, list, isAllChecked, checkedCount, handleClearCart }
   }
 }
 </script>
