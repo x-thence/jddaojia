@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import Request from '../../api/request'
 import { useRoute, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
@@ -24,7 +25,6 @@ import Merchant from '../../components/merchant/Merchant'
 import Content from './components/Content'
 import Cart from './components/Cart'
 import CartGoodsList from './components/CartGoodsList'
-import axios from 'axios'
 
 const backEffect = () => {
   const router = useRouter()
@@ -38,7 +38,7 @@ const getBusinessEffect = () => {
   const route = useRoute()
   const obj = reactive({ data: {} })
   const getDetail = async () => {
-    const res = await axios.get(`https://www.fastmock.site/mock/eac3f83516b2299ea36c1e78f6f09ffa/mock/api/v1/get_detail/${route.params.id}`)
+    const res = await Request.get(`/v1/get_detail/${route.params.id}`)
     if (res.status === 200) {
       obj.data = res.data
     }

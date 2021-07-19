@@ -26,29 +26,20 @@
 </template>
 
 <script>
+import Request from '../../../api/request'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
-import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { storeEffect } from './common'
 import { useStore } from 'vuex'
-// tab列表
-const navList = [{
-  title: '时令蔬菜',
-  tab: 'vegetables',
-  isActive: false
-}, {
-  title: '新鲜水果',
-  tab: 'fruit'
-}, {
-  title: '肉蛋家禽',
-  tab: 'egg'
-}, {
-  title: '水产海鲜',
-  tab: 'aquatic'
-}, {
-  title: '熟食快餐',
-  tab: 'fast'
-}]
+// 获取tab列表
+// const getNavListEffect = async () => {
+//   let navList = []
+//   const resp = await Request.get('/v1/business_nav_list')
+//   if (resp.data.code === 0) {
+//     navList = resp.data.navList
+//     return navList
+//   }
+// }
 // 获取商品数据的逻辑
 const getBusinessDataEffect = (tab) => {
   const route = useRoute()
@@ -56,7 +47,7 @@ const getBusinessDataEffect = (tab) => {
   const getBusinessData = async (tab) => {
     const businessId = route.params.id
     if (businessId && tab) {
-      const res = await axios.get(`https://www.fastmock.site/mock/eac3f83516b2299ea36c1e78f6f09ffa/mock/api/v1/get_business_data?businessId=${businessId}&tab=${tab.value}`)
+      const res = await Request.get('/v1/get_business_data', { businessId, tab: tab.value })
       if (res.data.code === 0) {
         goods.data = res?.data?.data
       } else {
@@ -94,7 +85,7 @@ export default {
     const route = useRoute()
     const businessId = route.params.id
     const { cartInfo } = useCartEffect()
-    return { navList, currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
+    return { currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
   }
 }
 </script>
