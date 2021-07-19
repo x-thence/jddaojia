@@ -1,12 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { Dialog } from 'vant'
 import Home from '../views/home/Home'
-import Login from '../views/login/Login'
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/login/Login')
+  },
+  {
+    path: '/personal',
+    name: 'Personal',
+    component: () => import('../views/personal/Personal'),
     beforeEnter (to, from, next) {
       if (sessionStorage.isLogin) {
         next()
@@ -15,11 +24,6 @@ const routes = [
         next('/login')
       }
     }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
   },
   {
     path: '/detail/:id',

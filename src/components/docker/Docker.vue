@@ -1,34 +1,44 @@
 <template>
-<div class="docker__wrap">
-  <div
-    class="docker__item"
-    :class="item.isActive ? 'docker__item--active' : '' "
-    @click="switchTab(item)"
-    v-for="item in dockerList"
-    :key="item.text">
-    <div class="iconfont" v-html="item.icon" />
-    <span>{{ item.text }}</span>
+  <div class="docker__wrap">
+    <div
+      @click="switchTab(item)"
+      v-for="item in menu.dockerList"
+      :key="item.text"
+      :class="{ 'isActive': item.isActive, 'docker__item': true }"
+    >
+      <div class="iconfont" v-html="item.icon" />
+      <span>{{ item.text }}</span>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
+
 export default {
   name: 'Docker',
   setup () {
     const router = useRouter()
-    const dockerList = [
+    const menu = reactive({ dockerList: [] })
+    menu.dockerList = [
       { icon: '&#xe602;', text: '首页', path: '/', isActive: true },
       { icon: '&#xe600;', text: '购物车', isActive: false },
       { icon: '&#xe634;', text: '订单', isActive: false },
-      { icon: '&#xe601;', text: '我的', path: '/login', isActive: false }
+      { icon: '&#xe601;', text: '我的', path: '/personal', isActive: false }
     ]
     const switchTab = (item) => {
+      for (const ele of menu.dockerList) {
+        if (item.text === ele.text) {
+          item.isActive = true
+          ele.isActive = true
+        } else {
+          ele.isActive = false
+        }
+      }
       router.push(item.path)
-      item.isActive = true
     }
-    return { dockerList, switchTab }
+    return { menu, switchTab }
   }
 }
 </script>
@@ -40,19 +50,19 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: .5rem;
+  height: 0.5rem;
   background: #fff;
   .docker__item {
     flex: 1;
-    padding-top: .05rem;
+    padding-top: 0.05rem;
     text-align: center;
     box-sizing: border-box;
-    &--active {
-      color: rgb(28, 172, 234);
-    }
     .iconfont {
-      font-size: .24rem;
+      font-size: 0.24rem;
     }
+  }
+  .isActive {
+    color: rgb(28, 172, 234) !important;
   }
 }
 </style>

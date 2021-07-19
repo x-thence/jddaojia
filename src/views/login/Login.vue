@@ -1,9 +1,6 @@
 <template>
   <div class="login__wrapper">
-      <div v-if="isLogin" class="my">
-        欢迎
-      </div>
-      <van-form v-else class="form__wrapper">
+      <van-form class="form__wrapper">
         <van-field v-model="username" left-icon="user-o" label="用户名" placeholder="请输入用户名" />
         <van-field v-model="password" type="password" left-icon="points" label="密码" placeholder="请输入密码" />
         <div class="btn__wrapper">
