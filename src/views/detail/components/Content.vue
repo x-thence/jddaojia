@@ -1,7 +1,7 @@
 <template>
 <div class="content">
   <div class="content__sidebar">
-    <div :class="{nav__item: true, is__active: item.tab === currentTab }" v-for="item in navList" :key="item" @click="handleTabClick(item.tab)">{{ item.title }}</div>
+    <div :class="{nav__item: true, is__active: item.tab === currentTab }" v-for="item in navListInfo.navList" :key="item" @click="handleTabClick(item.tab)">{{ item.title }}</div>
   </div>
   <div class="content__goods">
     <div class="goods__item" v-for="item in data" :key="item">
@@ -32,14 +32,12 @@ import { useRoute } from 'vue-router'
 import { storeEffect } from './common'
 import { useStore } from 'vuex'
 // 获取tab列表
-// const getNavListEffect = async () => {
-//   let navList = []
-//   const resp = await Request.get('/v1/business_nav_list')
-//   if (resp.data.code === 0) {
-//     navList = resp.data.navList
-//     return navList
-//   }
-// }
+const getNavListEffect = async (navListInfo) => {
+  const resp = await Request.get('/v1/business_nav_list')
+  if (resp.data.code === 0) {
+    navListInfo.navList = resp.data.navList
+  }
+}
 // 获取商品数据的逻辑
 const getBusinessDataEffect = (tab) => {
   const route = useRoute()
@@ -83,9 +81,11 @@ export default {
     const { data } = getBusinessDataEffect(currentTab)
     const { handleChangeCount } = storeEffect()
     const route = useRoute()
+    const navListInfo = reactive({ navList: [] })
+    getNavListEffect(navListInfo)
     const businessId = route.params.id
     const { cartInfo } = useCartEffect()
-    return { currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
+    return { navListInfo, currentTab, data, handleTabClick, handleChangeCount, cartInfo, businessId }
   }
 }
 </script>
