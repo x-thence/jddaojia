@@ -44,7 +44,8 @@ export default {
     text-align: right;
     box-sizing: border-box;
     text-align: center;
-    padding: .02rem .09rem;
+    font-size: .14rem;
+    padding: .05rem .1rem;
   }
 }
 </style>

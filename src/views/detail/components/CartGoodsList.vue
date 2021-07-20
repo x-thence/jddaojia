@@ -153,7 +153,7 @@ export default {
     justify-content: space-around;
     margin-bottom: .1rem;
     padding: .1rem;
-    border-bottom: 1px solid $colorGrey;
+    border-bottom: .01rem solid $colorGrey;
     .icon__wrapper {
       display: flex;
       align-items: center;
