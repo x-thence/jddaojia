@@ -100,9 +100,7 @@ export default {
   top: 2rem;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: aquamarine;
-
+  bottom: .5rem;
   &__sidebar {
     width: .9rem;
     background: rgb(244,244,244);
@@ -159,6 +157,7 @@ export default {
           border: .01rem solid $baseGreenColor;
           border-radius: 50%;
           padding: .02rem;
+          box-sizing: border-box;
         }
         .count {
           margin: 0 .1rem;

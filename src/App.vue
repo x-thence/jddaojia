@@ -1,8 +1,6 @@
 <template>
-<div>
-  <div class="wrapper">
-    <router-view></router-view>
-  </div>
+<div class="wrapper">
+  <router-view></router-view>
 </div>
 </template>
 <script>
@@ -18,6 +16,6 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: .5rem;
+  bottom: 0;
 }
 </style>

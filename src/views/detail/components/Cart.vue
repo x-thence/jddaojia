@@ -13,12 +13,13 @@
     </div>
   </div>
   <div class="right">
-    <span :class="{pay: true, payable: hasCount}">去结算</span>
+    <span :class="{pay: true, payable: hasCount}" @click="handleToSettle">去结算</span>
   </div>
 </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
   name: 'Cart',
   props: {
@@ -27,11 +28,18 @@ export default {
     totalPrice: String
   },
   setup (props, context) {
+    const router = useRouter()
     const { emit } = context
     const showCartInfo = () => {
       emit('showCartGoods')
     }
-    return { showCartInfo }
+    const handleToSettle = () => {
+      const hasCount = props.hasCount
+      if (hasCount) {
+        router.push('/order')
+      }
+    }
+    return { showCartInfo, handleToSettle }
   }
 }
 </script>
