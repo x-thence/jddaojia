@@ -44,26 +44,7 @@
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
-import { storeEffect } from './common'
-
-// 计算当前商家被添加进购物车的商品
-const list = computed(() => {
-  const store = useStore()
-  const route = useRoute()
-  const businessId = route.params.id
-  const list = []
-  const data = store.state.cartInfo[businessId]
-  // 商户id不存在直接return
-  if (!businessId) {
-    return
-  }
-  Object.keys(data).forEach((productId) => {
-    if (data[productId].count > 0) {
-      list.push(data[productId])
-    }
-  })
-  return list
-})
+import { storeEffect, getProductListEffect } from './common'
 // 判断是否全选
 const isAllChecked = computed(() => {
   const store = useStore()
@@ -127,9 +108,11 @@ export default {
     const { handleChangeCount } = storeEffect()
     const store = useStore()
     const route = useRoute()
+    const shopId = route.params.id
     const { handleClearCart } = handleClearCartEffect(store, route)
     const { setAllChecked } = setAllCheckedEffect(store, route)
     const { cancelAllChecked } = cancelAllCheckedEffect(store, route)
+    const { list } = getProductListEffect(shopId)
     return { handleChangeCount, list, isAllChecked, checkedCount, handleClearCart, setAllChecked, cancelAllChecked }
   }
 }

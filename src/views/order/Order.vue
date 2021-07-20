@@ -22,16 +22,16 @@
       </div>
     </div>
     <div class="order__content">
-      <div class="order__content__title">大润发(吉水店)</div>
+      <div class="order__content__title">{{ shopInfo.data.title }}</div>
       <div class="order__content__products">
         <van-card
-          v-for="item in 15"
+          v-for="item in list"
           :key="item"
-          num="2"
-          price="2.00"
-          desc="描述信息"
-          title="商品标题"
-          thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
+          :num="item.count"
+          :price="item.price"
+          :desc="item.desc"
+          :title="item.name"
+          :thumb="item.imgUrl"
         />
       </div>
     </div>
@@ -40,20 +40,25 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { Notify } from 'vant'
+import { getProductListEffect, getBusinessEffect } from '../detail/components/common'
 // import { ref } from 'vue'
 export default {
   name: 'Order',
   setup () {
     const router = useRouter()
+    const route = useRoute()
+    const shopId = route.query.shopId
     const goBack = () => {
       router.back()
     }
     const onShare = () => {
       Notify({ type: 'warning', message: '努力开发中。。。。。' })
     }
-    return { goBack, onShare }
+    const { list } = getProductListEffect(shopId)
+    const { shopInfo } = getBusinessEffect(shopId)
+    return { goBack, onShare, list, shopInfo }
   }
 }
 </script>

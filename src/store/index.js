@@ -4,7 +4,7 @@ const setLocalStorage = (data) => {
   try {
     localStorage.setItem('store', JSON.stringify(data))
   } catch (err) {
-    console.log(err)
+    console.dir(err)
   }
 }
 // 从本地存储取出数据
@@ -36,6 +36,7 @@ export default createStore({
           price: item.price,
           imgUrl: item.imgUrl,
           desc: item.desc,
+          name: item.name,
           checked: true
         }
       } else {
@@ -47,6 +48,7 @@ export default createStore({
             price: item.price,
             imgUrl: item.imgUrl,
             desc: item.desc,
+            name: item.name,
             checked: true
           }
         } else {

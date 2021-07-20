@@ -7,7 +7,7 @@
       </span>
       <span class="title">商家详情</span>
     </div>
-    <Merchant :merchant-list="[obj.data]" />
+    <Merchant :merchant-list="[shopInfo.data]" />
     <van-search v-model="keywords" placeholder="请输入搜索关键词" />
     <Content />
     <Cart @showCartGoods="handleShowCartGoods" :has-count="hasCount" :total-price="totalPrice" :cart-count="count"/>
@@ -17,33 +17,20 @@
 </template>
 
 <script>
-import Request from '../../api/request'
 import { useRoute, useRouter } from 'vue-router'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import Merchant from '../../components/merchant/Merchant'
 import Content from './components/Content'
 import Cart from './components/Cart'
 import CartGoodsList from './components/CartGoodsList'
-
+import { getBusinessEffect } from './components/common'
 const backEffect = () => {
   const router = useRouter()
   const handleBack = () => {
     router.back()
   }
   return handleBack
-}
-// 获取商家信息逻辑
-const getBusinessEffect = () => {
-  const route = useRoute()
-  const obj = reactive({ data: {} })
-  const getDetail = async () => {
-    const res = await Request.get(`/v1/get_detail/${route.params.id}`)
-    if (res.status === 200) {
-      obj.data = res.data
-    }
-  }
-  return { getDetail, obj }
 }
 // 根据购物车是否有商品来切换对应的样式
 const toggleCartEffect = () => {
@@ -114,17 +101,18 @@ export default {
     CartGoodsList
   },
   setup () {
+    const route = useRoute()
+    const shopId = route.params.id
     const keywords = ref('')
     const isShowCartGoods = ref(false)
-    const { getDetail, obj } = getBusinessEffect()
-    getDetail()
+    const { shopInfo } = getBusinessEffect(shopId)
     const handleBack = backEffect()
     const hasCount = toggleCartEffect()
     const totalPrice = getTotalPriceEffect()
     const count = computedCountEffect()
     const handleShowCartGoods = handleShowCartGoodsEffect(isShowCartGoods)
     return {
-      obj,
+      shopInfo,
       keywords,
       handleBack,
       hasCount,

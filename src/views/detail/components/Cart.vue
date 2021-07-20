@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 export default {
   name: 'Cart',
   props: {
@@ -29,6 +29,7 @@ export default {
   },
   setup (props, context) {
     const router = useRouter()
+    const route = useRoute()
     const { emit } = context
     const showCartInfo = () => {
       emit('showCartGoods')
@@ -36,7 +37,8 @@ export default {
     const handleToSettle = () => {
       const hasCount = props.hasCount
       if (hasCount) {
-        router.push('/order')
+        const shopId = route.params.id
+        router.push(`/order?shopId=${shopId}`)
       }
     }
     return { showCartInfo, handleToSettle }
