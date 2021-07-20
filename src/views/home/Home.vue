@@ -6,7 +6,7 @@
     <weal></weal>
     <near-by></near-by>
   </div>
-  <docker></docker>
+  <docker :currentIndex="0"></docker>
 </div>
 </template>
 

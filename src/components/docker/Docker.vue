@@ -2,9 +2,9 @@
   <div class="docker__wrap">
     <div
       @click="switchTab(item)"
-      v-for="item in menu.dockerList"
+      v-for="(item, index) in menu.dockerList"
       :key="item.text"
-      :class="{ 'isActive': item.isActive, 'docker__item': true }"
+      :class="{ 'isActive': index === currentIndex, 'docker__item': true }"
     >
       <div class="iconfont" v-html="item.icon" />
       <span>{{ item.text }}</span>
@@ -18,7 +18,8 @@ import { reactive } from 'vue'
 
 export default {
   name: 'Docker',
-  setup () {
+  props: ['currentIndex'],
+  setup (props) {
     const router = useRouter()
     const menu = reactive({ dockerList: [] })
     menu.dockerList = [
@@ -28,14 +29,6 @@ export default {
       { icon: '&#xe601;', text: '我的', path: '/personal', isActive: false }
     ]
     const switchTab = (item) => {
-      for (const ele of menu.dockerList) {
-        if (item.text === ele.text) {
-          item.isActive = true
-          ele.isActive = true
-        } else {
-          ele.isActive = false
-        }
-      }
       router.push(item.path)
     }
     return { menu, switchTab }

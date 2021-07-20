@@ -1,7 +1,7 @@
 <template>
   <div class="">
     个人中心
-    <docker />
+    <docker :currentIndex="3" />
   </div>
 </template>
 

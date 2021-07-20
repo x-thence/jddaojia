@@ -2,7 +2,7 @@
   <div class="detail__wrapper">
     <div class="header">
       <span @click="handleBack" class="back">
-        <van-icon size="20" name="arrow-left" />
+        <span class="iconfont">&#xe692;</span>
         <span>返回</span>
       </span>
       <span class="title">商家详情</span>
@@ -160,6 +160,9 @@ export default {
       display: flex;
       align-items: center;
       left: .1rem;
+      font-size: .16rem;
+    }
+    .iconfont {
       font-size: .16rem;
     }
   }
