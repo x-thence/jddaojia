@@ -95,7 +95,6 @@ export default {
       display: inline-block;
       padding: .1rem .25rem;
       border-radius: .3rem;
-      background: #c4c4c4;
       color: $bgColorWhite;
     }
     .payable{
