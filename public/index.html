@@ -8,10 +8,15 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script>
       // 移动端适配
-      var clientWidth = document.documentElement.clientWidth || document.body.clientWidth
-      var scale = clientWidth / 375
-      const rootFontSize = 100 * scale
-      document.getElementsByTagName('html')[0].style['font-size'] = rootFontSize + 'px'
+      function setRootFont() {
+        var clientWidth = document.documentElement.clientWidth || document.body.clientWidth
+        var scale = clientWidth / 375
+        var rootFontSize = 100 * scale
+        document.getElementsByTagName('html')[0].style['font-size'] = rootFontSize + 'px'
+      }
+      setRootFont()
+      // 设备屏幕尺寸发生变化时重新计算
+      window.onresize = setRootFont;
     </script>
   </head>
   <body>

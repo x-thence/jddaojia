@@ -20,8 +20,10 @@ const routes = [
       if (sessionStorage.isLogin) {
         next()
       } else {
-        Dialog({ message: '请您先登录再进行操作' })
-        next('/login')
+        setTimeout(() => {
+          Dialog({ message: '请您先登录再进行操作' })
+          next('/login')
+        }, 500)
       }
     }
   },
@@ -38,7 +40,17 @@ const routes = [
   {
     path: '/my_order_list',
     name: 'MyOrderList',
-    component: () => import('../views/my-order-list/MyOrderList')
+    component: () => import('../views/my-order-list/MyOrderList'),
+    beforeEnter (to, from, next) {
+      if (sessionStorage.isLogin) {
+        next()
+      } else {
+        setTimeout(() => {
+          Dialog({ message: '请您先登录再进行操作' })
+          next('/login')
+        }, 500)
+      }
+    }
   }
 ]
 
