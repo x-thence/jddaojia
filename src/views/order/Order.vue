@@ -44,18 +44,21 @@ import { useRouter, useRoute } from 'vue-router'
 import { Notify, Dialog } from 'vant'
 import { getProductListEffect, getBusinessEffect, getTotalPriceEffect } from '../../effects/common'
 // import { ref } from 'vue'
-const onSubmit = () => {
-  Dialog.confirm({
-    title: '确认订单',
-    message: '是否确认提交订单'
-  })
-    .then(() => {
-      console.log('yes')
-      // on confirm
+
+const onSubmitEffect = (router) => {
+  const onSubmit = () => {
+    Dialog.confirm({
+      title: '确认订单',
+      message: '是否确认提交订单'
     })
-    .catch(() => {
-      console.log('no')
-    })
+      .then(() => {
+        router.push('/my_order_list')
+      })
+      .catch(() => {
+        router.push('/')
+      })
+  }
+  return { onSubmit }
 }
 
 export default {
@@ -67,12 +70,14 @@ export default {
     const goBack = () => {
       router.back()
     }
+    // 点击右上角的分享按钮
     const onShare = () => {
       Notify({ type: 'warning', message: '努力开发中。。。。。' })
     }
     const { list } = getProductListEffect(shopId)
     const { shopInfo } = getBusinessEffect(shopId)
     const { totalPrice } = getTotalPriceEffect(shopId)
+    const { onSubmit } = onSubmitEffect(router)
     let centPrice = 0
     centPrice = totalPrice.value * 100
     return { goBack, onShare, list, shopInfo, centPrice, onSubmit }
