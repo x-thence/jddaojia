@@ -24,7 +24,7 @@ import Merchant from '../../components/merchant/Merchant'
 import Content from './components/Content'
 import Cart from './components/Cart'
 import CartGoodsList from './components/CartGoodsList'
-import { getBusinessEffect } from './components/common'
+import { getBusinessEffect, getTotalPriceEffect } from '../../effects/common'
 const backEffect = () => {
   const router = useRouter()
   const handleBack = () => {
@@ -49,23 +49,6 @@ const toggleCartEffect = () => {
     return hasCount
   })
   return getHasCount
-}
-// 计算当前商家购物车总价
-const getTotalPriceEffect = () => {
-  const totalPrice = computed(() => {
-    const route = useRoute()
-    const store = useStore()
-    const businessId = route.params.id
-    let total = 0
-    const list = store.state.cartInfo[businessId]
-    if (list) {
-      for (const goodKey in list) {
-        total += list[goodKey].count * list[goodKey].price
-      }
-    }
-    return total.toFixed(2)
-  })
-  return totalPrice
 }
 // 计算当前商家购物车商品数量
 const computedCountEffect = () => {
@@ -108,7 +91,8 @@ export default {
     const { shopInfo } = getBusinessEffect(shopId)
     const handleBack = backEffect()
     const hasCount = toggleCartEffect()
-    const totalPrice = getTotalPriceEffect()
+    // 获取当前商家购物车商品总价
+    const { totalPrice } = getTotalPriceEffect(shopId)
     const count = computedCountEffect()
     const handleShowCartGoods = handleShowCartGoodsEffect(isShowCartGoods)
     return {

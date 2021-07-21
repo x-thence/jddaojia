@@ -35,15 +35,29 @@
         />
       </div>
     </div>
-    <van-submit-bar :price="3050" button-text="提交订单" />
+    <van-submit-bar :price="centPrice" @submit="onSubmit" button-text="提交订单" />
   </div>
 </template>
 
 <script>
 import { useRouter, useRoute } from 'vue-router'
-import { Notify } from 'vant'
-import { getProductListEffect, getBusinessEffect } from '../detail/components/common'
+import { Notify, Dialog } from 'vant'
+import { getProductListEffect, getBusinessEffect, getTotalPriceEffect } from '../../effects/common'
 // import { ref } from 'vue'
+const onSubmit = () => {
+  Dialog.confirm({
+    title: '确认订单',
+    message: '是否确认提交订单'
+  })
+    .then(() => {
+      console.log('yes')
+      // on confirm
+    })
+    .catch(() => {
+      console.log('no')
+    })
+}
+
 export default {
   name: 'Order',
   setup () {
@@ -58,7 +72,10 @@ export default {
     }
     const { list } = getProductListEffect(shopId)
     const { shopInfo } = getBusinessEffect(shopId)
-    return { goBack, onShare, list, shopInfo }
+    const { totalPrice } = getTotalPriceEffect(shopId)
+    let centPrice = 0
+    centPrice = totalPrice.value * 100
+    return { goBack, onShare, list, shopInfo, centPrice, onSubmit }
   }
 }
 </script>

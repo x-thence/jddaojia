@@ -44,7 +44,7 @@
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
-import { storeEffect, getProductListEffect } from './common'
+import { storeEffect, getProductListEffect } from '../../../effects/common'
 // 判断是否全选
 const isAllChecked = computed(() => {
   const store = useStore()

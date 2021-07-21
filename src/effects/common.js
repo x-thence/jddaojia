@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
-import Request from '../../../api/request'
+import Request from '../api/request'
 
 export const storeEffect = () => {
   const store = useStore()
@@ -61,4 +61,19 @@ export const getBusinessEffect = (shopId) => {
   }
   getDetail()
   return { shopInfo }
+}
+// 计算商家购物车总价
+export const getTotalPriceEffect = (shopId) => {
+  const totalPrice = computed(() => {
+    const store = useStore()
+    let total = 0
+    const list = store.state.cartInfo[shopId]
+    if (list) {
+      for (const goodKey in list) {
+        total += list[goodKey].count * list[goodKey].price
+      }
+    }
+    return total.toFixed(2)
+  })
+  return { totalPrice }
 }

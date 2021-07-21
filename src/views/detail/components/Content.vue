@@ -29,7 +29,7 @@
 import Request from '../../../api/request'
 import { reactive, toRefs, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-import { storeEffect } from './common'
+import { storeEffect } from '../../../effects/common'
 import { useStore } from 'vuex'
 // 获取tab列表
 const getNavListEffect = async (navListInfo) => {
