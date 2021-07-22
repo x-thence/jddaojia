@@ -6,11 +6,12 @@
     </div>
     <div class="order__item__content">
       <div class="order__item__content__imgs">
-        <div class="order__item__content__imgs__main" v-for="(subItem, subIndex) in item.products" :key="subIndex">
-          <img :src="subItem.imgUrl" alt="">
-          <span>x {{ subItem?.count || '' }}</span>
-
-        </div>
+        <template v-for="(subItem, subIndex) in item.products" :key="subIndex">
+          <div v-if="subIndex <= 3" class="order__item__content__imgs__main">
+            <img :src="subItem.imgUrl" alt="">
+            <span>x {{ subItem?.count || '' }}</span>
+          </div>
+        </template>
       </div>
       <div class="order__item__content__total">
         <span>共{{ getTotalInfo(item)?.count || '' }}件</span>
