@@ -2,7 +2,9 @@
 <div class="nearby__wrapper">
   <span class="near__title">附近商家</span>
   <Merchant :merchant-list="nearBys" />
-  <van-divider>我也是有底线的</van-divider>
+  <div class="bottom__line">
+    <span class="line__text">我也是有底线的</span>
+  </div>
 </div>
 </template>
 
@@ -30,6 +32,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/style/variable.scss";
 .nearby__wrapper {
   width: 95%;
   margin: auto;
@@ -37,6 +40,16 @@ export default {
     display: inline-block;
     padding: .1rem 0;
     font-size: .16rem;
+  }
+  .bottom__line {
+    position: relative;
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    height: .5rem;
+    line-height: .5rem;
+    text-align: center;
+    color: $fontColor6;
   }
 }
 </style>

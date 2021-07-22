@@ -4,7 +4,9 @@
       <img class="logo" :src="item.imgUrl" :alt="item.title">
       <div class="item__text__wrapper">
         <span class="title">{{ item.title }}</span>
-        <van-rate v-model="item.rateValue" void-icon="star" allow-half size="15" color="#ffd21e" />
+        <div class="point__wrapper">
+          <i  v-for="icon in item.rateValue" :key="icon" class="iconfont">&#xe647;</i>
+        </div>
         <span class="price__text">{{ item.priceText }}</span>
         <p class="desc">{{item.desc}}</p>
       </div>
@@ -28,6 +30,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/style/variable.scss';
+
 .merchant__wrapper {
   width: 95%;
   margin: auto;
@@ -46,17 +50,24 @@ export default {
       padding-left: .3rem;
       flex-direction: column;
       font-size: .12rem;
+      .point__wrapper .iconfont {
+        position: relative;
+        top: .02rem;
+        margin-right: .02rem;
+        font-size: .14rem;
+        color: $orangeColor;
+      }
       .title {
         font-size: .16rem;
         font-weight: bold;
       }
       .price__text {
         padding-top: .1rem;
-        color: #666;
+        color: $fontColor6;
       }
       .desc {
-        color: #666;
-        font-size: .14rem;
+        color: $fontColor6;
+        font-size: .13rem;
       }
     }
   }

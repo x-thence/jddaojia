@@ -6,7 +6,7 @@
           <i v-show="!isAllChecked" @click="setAllChecked" class="iconfont no-all-check-icon">&#xe6b2;</i>
           <i v-show="isAllChecked" @click="cancelAllChecked" class="iconfont all-check-icon">&#xe614;</i>
         </span>
-        <span class="all__ckeck__text">全选(已选{{ checkedCount }}件)</span>
+        <span class="all__ckeck__text">全选（已选 <span class="cart__total__count">{{ checkedCount }}</span> 件）</span>
       </div>
       <div class="clear">
         <span @click="handleClearCart">
@@ -150,6 +150,9 @@ export default {
       }
       .all__ckeck__text {
         margin-left: .1rem;
+        .cart__total__count {
+          color: $priceColor;
+        }
       }
     }
     .clear {
@@ -168,15 +171,18 @@ export default {
     box-sizing: border-box;
     flex-wrap: wrap;
     .goods__item {
-      display: flex;
-      width: 100%;
-      height: .7rem;
       position: relative;
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      max-height: 1rem;
+      margin-bottom: .1rem;;
       img {
         width: .7rem;
         height: .7rem;
       }
       .text__wrapper {
+        flex: 1;
         .name {
           font-weight: bold;
           @include ellipsisMany;

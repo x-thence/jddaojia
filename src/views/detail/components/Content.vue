@@ -47,7 +47,9 @@ const getBusinessDataEffect = (tab) => {
     if (businessId && tab) {
       const res = await Request.get('/v1/get_business_data', { businessId, tab: tab.value })
       if (res.data.code === 0) {
-        goods.data = res?.data?.data
+        // 打乱数组模拟切换不同tab获取的数据
+        const temp = res.data.data.sort(() => Math.random() - 0.5)
+        goods.data = temp
       } else {
         return []
       }

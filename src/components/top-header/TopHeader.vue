@@ -64,6 +64,8 @@ export default {
     }
 
     .header__wrapper__search {
+      display: flex;
+      align-items: center;
       flex:1;
       justify-content: space-between;
       border-radius: .64rem;
@@ -73,7 +75,7 @@ export default {
       }
       .icon__search {
         position: relative;
-        left: 10%;
+        left: .26rem;
         color: #c9c9c9;
       }
       .icon__talk {
