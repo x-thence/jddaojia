@@ -1,11 +1,11 @@
 <template>
 <div class="tag__wrapper">
-  <van-tag class="tag__item" round type="primary" text-color="#fff" color="rgb(26,166,232)" v-for="(item, index) in list" :key="index">{{ item.value }}</van-tag>
+  <span class="tag__item" v-for="(item, index) in list" :key="index">{{ item.value }}</span>
+  <!-- <van-tag class="tag__item" round type="primary" text-color="#fff" color="rgb(26,166,232)" v-for="(item, index) in list" :key="index">{{ item.value }}</van-tag> -->
 </div>
 </template>
 
 <script>
-import { Tag } from 'vant'
 export default {
   name: 'TagList',
   data () {
@@ -26,9 +26,6 @@ export default {
         value: '盐'
       }]
     }
-  },
-  components: {
-    [Tag.name]: Tag
   }
 }
 </script>
@@ -39,13 +36,13 @@ export default {
   justify-content: space-around;
   padding-bottom: .05rem;
   .tag__item {
-    display: flex;
-    justify-content: center;
-    text-align: right;
+    padding: .05rem .1rem;
+    background: rgba(0,0,0, .1);
+    color: #fff;
+    border-radius: .2rem;
     box-sizing: border-box;
     text-align: center;
-    font-size: .14rem;
-    padding: .05rem .1rem;
+    font-size: .12rem;
   }
 }
 </style>

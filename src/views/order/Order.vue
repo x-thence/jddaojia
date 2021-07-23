@@ -43,7 +43,6 @@
 import { useRouter, useRoute } from 'vue-router'
 import { Notify, Dialog } from 'vant'
 import { getProductListEffect, getBusinessEffect, getTotalPriceEffect } from '../../effects/common'
-// import { ref } from 'vue'
 
 const onSubmitEffect = (router) => {
   const onSubmit = () => {
