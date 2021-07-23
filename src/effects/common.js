@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
 import Request from '../api/request'
+// import { getLocalStorage } from '../effects/common'
 
 export const storeEffect = () => {
   const store = useStore()

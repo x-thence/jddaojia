@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 // 将购物车内容set本地存储
-const setLocalStorage = (data) => {
+export const setLocalStorage = (data) => {
   try {
     localStorage.setItem('store', JSON.stringify(data))
   } catch (err) {
@@ -8,7 +8,7 @@ const setLocalStorage = (data) => {
   }
 }
 // 从本地存储取出数据
-const getLocalStorage = () => {
+export const getLocalStorage = () => {
   try {
     const data = localStorage.getItem('store')
     return JSON.parse(data)
