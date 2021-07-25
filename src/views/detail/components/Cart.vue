@@ -20,6 +20,7 @@
 
 <script>
 import { useRouter, useRoute } from 'vue-router'
+import { Toast } from 'vant'
 export default {
   name: 'Cart',
   props: {
@@ -37,8 +38,16 @@ export default {
     const handleToSettle = () => {
       const hasCount = props.hasCount
       if (hasCount) {
-        const shopId = route.params.id
-        router.push(`/order?shopId=${shopId}`)
+        // 只有登录了才能提交订单
+        if (sessionStorage.isLogin) {
+          const shopId = route.params.id
+          router.push(`/order?shopId=${shopId}`)
+        } else {
+          Toast('请您先登录再进行操作')
+          setTimeout(() => {
+            router.push('/login')
+          }, 2000)
+        }
       }
     }
     return { showCartInfo, handleToSettle }

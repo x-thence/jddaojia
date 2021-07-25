@@ -8,7 +8,9 @@
       <span class="title">商家详情</span>
     </div>
     <Merchant :merchant-list="[shopInfo.data]" />
-    <van-search v-model="keywords" placeholder="请输入搜索关键词" />
+    <div class="search__wrapper">
+      <input type="text" placeholder="请输入搜索关键词" >
+    </div>
     <Content />
     <Cart @showCartGoods="handleShowCartGoods" :has-count="hasCount" :total-price="totalPrice" :cart-count="count"/>
     <CartGoodsList v-if="isShowCartGoods" />
@@ -136,6 +138,22 @@ export default {
     }
     .iconfont {
       font-size: .16rem;
+    }
+  }
+  .search__wrapper {
+    height: .36rem;
+    margin: 0 .1rem;
+    padding: 0 .1rem;
+    border-radius: .05rem;
+    background: $colorNormal;
+    line-height: .36rem;
+    color: $fontColor6;
+    input {
+      width: 100%;
+      line-height: .36rem;
+      border: none;
+      outline: none;
+      background: none;
     }
   }
   .mask {

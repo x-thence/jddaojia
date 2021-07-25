@@ -7,6 +7,7 @@
         <p>{{ data.desc }}</p>
         <span class="price">￥{{ data.price}}</span>
       </div>
+      <div class="count_wrap">{{ 'x' + data.count }}</div>
     </div>
   </div>
 </template>
@@ -43,6 +44,11 @@ export default {
           color: $priceColor;
           font-size: .18rem;
         }
+      }
+      .count_wrap {
+        position: absolute;
+        bottom: .25rem;
+        right: 0;
       }
     }
 }

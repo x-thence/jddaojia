@@ -20,7 +20,7 @@
       </div>
       <div class="order__top__time">
         <span class="order__top__time__left">送达时间</span>
-        <span class="order__top__time__right">立即送达></span>
+        <span class="order__top__time__right">立即送达 ></span>
       </div>
     </div>
     <div class="order__content">
@@ -84,6 +84,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/style/variable.scss';
+@import '../../assets/style/mixins.scss';
 .order {
   position: absolute;
   top: 0;
@@ -97,7 +98,7 @@ export default {
       line-height: .4rem;
       margin-bottom: .05rem;
       text-align: center;
-      background: #fff;
+      background: $bgColorWhite;
       border-bottom: $borderColor;
       .title {
         font-size: .16rem;
@@ -119,8 +120,9 @@ export default {
     margin: auto;
     &__address {
       padding: 0.1rem .2rem 0 .2rem;
-      height: .85rem;
+      min-height: .85rem;
       margin-top: .1rem;
+      padding-bottom: .05rem;
       color: #333;
       background-color: rgb(250,250,250);
       border-radius: .05rem;
@@ -130,8 +132,10 @@ export default {
       }
       &__part {
         padding-top: .1rem;
-        height: .3rem;
+        max-height: .5rem;
+        margin-bottom: .1rem;
         font-size: .16rem;
+        @include ellipsisMany;
       }
       &__phone {
         padding-top: .1rem;
@@ -142,7 +146,7 @@ export default {
       line-height: .3rem;
       border-radius: .03rem;
       margin-top: .05rem;
-      background-color: #fff;
+      background-color: $bgColorWhite;
       &__left {
         width: 1.5rem;
         text-indent: .2rem;
@@ -157,7 +161,7 @@ export default {
   }
   &__content {
     position: absolute;
-    top: 1.75rem;
+    top: 1.88rem;
     left: 0;
     right: 0;
     bottom: 0;
