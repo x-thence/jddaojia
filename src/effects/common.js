@@ -3,7 +3,6 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { computed, reactive } from 'vue'
 import Request from '../api/request'
-// import { getLocalStorage } from '../effects/common'
 
 export const storeEffect = () => {
   const store = useStore()
@@ -11,7 +10,6 @@ export const storeEffect = () => {
   const handleChangeCount = (type, item, isCart) => {
     const businessId = route.params.id
     if (type === 'minus') {
-      !isCart && (item.count -= 1)
       if (item.count < 0) {
         item.count = 0
         return
@@ -26,7 +24,6 @@ export const storeEffect = () => {
         item,
         businessId
       })
-      !isCart && (item.count += 1)
     }
   }
   return { handleChangeCount }

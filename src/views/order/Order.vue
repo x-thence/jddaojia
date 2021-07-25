@@ -49,7 +49,7 @@ const onSubmitEffect = (router) => {
         router.push('/my_order_list')
       })
       .catch(() => {
-        router.push('/')
+        router.back()
       })
   }
   return { onSubmit }
