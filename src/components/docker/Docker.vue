@@ -24,7 +24,7 @@ export default {
     const menu = reactive({ dockerList: [] })
     menu.dockerList = [
       { icon: '&#xe602;', text: '首页', path: '/', isActive: true },
-      { icon: '&#xe600;', text: '购物车', isActive: false },
+      { icon: '&#xe600;', text: '购物车', path: '/mycart', isActive: false },
       { icon: '&#xe634;', text: '订单', path: '/my_order_list', isActive: false },
       { icon: '&#xe601;', text: '我的', path: '/personal', isActive: false }
     ]
