@@ -4,6 +4,11 @@
     <div class="personal__avtar">
       <img src="@/assets/images/user.png" alt="头像">
     </div>
+    <div class="personal__content">
+      <ul class="personal__content__ul">
+        <li v-for="item of list" :key="item.id">{{ item.name }}</li>
+      </ul>
+    </div>
     <docker :currentIndex="3" />
   </div>
 </template>
@@ -12,7 +17,23 @@
 import Docker from '../../components/docker/Docker'
 export default {
   name: 'Personal',
-  components: { Docker }
+  components: { Docker },
+  setup () {
+    const list = [{
+      id: Math.random(),
+      name: '我的钱包'
+    }, {
+      id: Math.random(),
+      name: '我的关注'
+    }, {
+      id: Math.random(),
+      name: '我的地址'
+    }, {
+      id: Math.random(),
+      name: '商家会员'
+    }]
+    return { list }
+  }
 }
 </script>
 
@@ -32,9 +53,18 @@ export default {
   &__avtar {
     width: .8rem;
     height: .8rem;
-    margin: auto;
+    margin: .2rem auto;
     img {
       width: 100%;
+    }
+  }
+  &__content {
+    // height: 2rem;
+    // background: pink;
+    margin: 0 .2rem;
+    li {
+      line-height: .4rem;
+      border-bottom: 1px solid #fff;
     }
   }
 }
