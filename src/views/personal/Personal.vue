@@ -30,7 +30,22 @@ export default {
       name: '我的地址'
     }, {
       id: Math.random(),
+      name: '省钱秘笈'
+    }, {
+      id: Math.random(),
+      name: '我的评价'
+    }, {
+      id: Math.random(),
       name: '商家会员'
+    }, {
+      id: Math.random(),
+      name: '售后退款'
+    }, {
+      id: Math.random(),
+      name: 'V+会员'
+    }, {
+      id: Math.random(),
+      name: '客服与帮助'
     }]
     return { list }
   }
@@ -48,7 +63,7 @@ export default {
   &__header {
     line-height: .4rem;
     text-align: center;
-    background: #fff;
+    // background: #fff;
   }
   &__avtar {
     width: .8rem;
@@ -59,9 +74,8 @@ export default {
     }
   }
   &__content {
-    // height: 2rem;
-    // background: pink;
     margin: 0 .2rem;
+    // background: #fff;
     li {
       line-height: .4rem;
       border-bottom: 1px solid #fff;
