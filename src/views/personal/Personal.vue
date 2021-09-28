@@ -1,8 +1,9 @@
 <template>
   <div class="personal">
-    <div class="personal__header">个人中心</div>
-    <div class="personal__avtar">
-      <img src="@/assets/images/user.png" alt="头像">
+    <div class="personal__avtar__wrap">
+      <div class="personal__avtar__wrap__content">
+        <img src="@/assets/images/user.png" alt="头像">
+      </div>
     </div>
     <div class="personal__content">
       <ul class="personal__content__ul">
@@ -60,22 +61,20 @@ export default {
   right: 0;
   bottom: 0;
   background: #eee;
-  &__header {
-    line-height: .4rem;
-    text-align: center;
-    // background: #fff;
-  }
-  &__avtar {
-    width: .8rem;
-    height: .8rem;
-    margin: .2rem auto;
-    img {
-      width: 100%;
+  &__avtar__wrap {
+    background: #fff;
+    overflow: hidden;
+    &__content{
+      width: .8rem;
+      height: .8rem;
+      margin: .3rem auto;
+      img {
+        width: 100%;
+      }
     }
   }
   &__content {
     margin: 0 .2rem;
-    // background: #fff;
     li {
       line-height: .4rem;
       border-bottom: 1px solid #fff;
